@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Spinwheel</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: aliceblue;
+        }
+        .wheel-container {
+            padding: 0 0 20px 0;
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        .wheel {
+            margin: 0 0 0 -10px;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 10px solid #ccc;
+            position: relative;
+            overflow: hidden;
+            transform: rotate(0deg);
+            transition: transform 4s ease-out;
+        }
+        .wheel::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                #f00 0deg 72deg, 
+                #ff0 72deg 144deg, 
+                #0f0 144deg 216deg, 
+                #0ff 216deg 288deg, 
+                #00f 288deg 360deg
+            );
+            transform: translate(-50%, -50%);
+        }
+        .label {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: 100% 100%;
+        }
+        .label:nth-child(1) { transform: rotate(36deg); }
+        .label:nth-child(2) { transform: rotate(108deg); }
+        .label:nth-child(3) { transform: rotate(180deg); }
+        .label:nth-child(4) { transform: rotate(252deg); }
+        .label:nth-child(5) { transform: rotate(324deg); }
+        .label span {
+            display: block;
+            width: 100px;
+            text-align: center;
+            /* Adjust the positioning to center the text */
+            transform: rotate(-36deg) translate(80%, 80%);
+            /* Adjust font size and weight for better visibility */
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+        .pointer {
+            width: 0; 
+            height: 0; 
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid black;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%) scaleY(-1);
+            z-index: 20;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wheel-container">
+        <div class="wheel" id="wheel">
+            <div class="label"><span>Zus</span></div>
+            <div class="label"><span>Gigi</span></div>
+            <div class="label"><span>Kenangan</span></div>
+            <div class="label"><span>Wolf & Turtle</span></div>
+            <div class="label"><span>Kee Nguyen</span></div>
+        </div>
+        <div class="pointer"></div>
+    </div>
+    <div class="button-container">
+        <button onclick="spin()">Spin the Wheel</button>
+    </div>
+
+    <script>
+        const wheel = document.getElementById('wheel');
+        function spin() {
+            const deg = Math.floor(5000 + Math.random() * 5000);
+            wheel.style.transform = `rotate(${deg}deg)`;
+        }
+    </script>
+</body>
+</html>
